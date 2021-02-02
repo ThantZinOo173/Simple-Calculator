@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <style>
+        * {
+            padding: 0;
+            margin:0;
+            box-sizing:border-box;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background-color:#070000;
+        }
+        .calc {
+            width: 400px;
+            margin:100px auto ;
+        }
+        .display {
+            color:rgb(159, 159, 207);
+            text-align: right;
+            font-size: 60px;
+            padding: 20px;
+            background-color: rgb(114, 101, 101);
+        }
+        .keypad {
+
+        }
+        .keypad-table {
+
+        }
+        .keypad-table tr:first-child .key {
+            background-color: #a5a5a5;
+        }
+        .keypad-table tr:first-child .key:active {
+            background-color: #e61919;
+            border:rgb(9, 50, 233) solid 3px;
+        }
+        .keypad-table tr td:last-child .key {
+            background-color: #aa6c08;
+        }
+        .keypad-table tr td:last-child .key:active {
+            background-color: #a2f10d;
+            border:rgb(9, 50, 233) solid 3px;
+        }
+        .key {
+            width: 90px;
+            height: 90px;
+            border: 1px solid black;
+            border-radius: 90px;
+            line-height: 90px;
+            text-align: center;
+            margin:5px;
+            background-color:#333333;
+            color:white;
+            cursor: pointer;
+            user-select: none;
+        }
+        .key:active {
+            background-color: rgb(247, 240, 240);
+            border:rgb(9, 50, 233) solid 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calc">
+        <div class="display">
+            0
+        </div>
+        <div class="keypad">
+            <table class="keypad-table">
+                <tr>
+                    <td>
+                        <div class="key" onclick="clearAll()">AC</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="clearLast()">C</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay('%')">%</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay('/')">&#247;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="key" onclick="showDisplay(7)">7</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay(8)">8</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay(9)">9</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay('*')">x</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="key" onclick="showDisplay(4)">4</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay(5)">5</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay(6)">6</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay('-')">-</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="key" onclick="showDisplay(1)">1</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay(2)">2</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay(3)">3</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay('+')">+</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" >
+                        <div class="key" style="width:190px;" onclick="showDisplay(0)">0</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="showDisplay('.')">.</div>
+                    </td>
+                    <td>
+                        <div class="key" onclick="calculate()">=</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        let displayBox = document.querySelector(".display");
+        function showDisplay(x) {
+            let operators = [ "+", "-", "*", "/", ".", "%"];
+            let current = displayBox.innerHTML;
+            let lastIndex = current[current.length-1];
+            if (displayBox.innerHTML == 0){
+                displayBox.innerHTML = x;
+            }
+            else if(operators.includes(x) && operators.includes(lastIndex) ) {
+                return displayBox.innerHTML = `${current.substring(0,current.length-1)} ${x}`;
+            }
+            else {
+                displayBox.innerHTML += x;
+            }
+        }
+        function calculate() {
+            let current = displayBox.innerHTML;
+                displayBox.innerHTML = eval(current);
+        }
+        function clearAll() {
+            displayBox.innerHTML = "0";
+        }
+        function clearLast() {
+            let current = displayBox.innerHTML;
+            if(current.length ==1) {
+                displayBox.innerHTML = "0";
+            }
+            else {
+                displayBox.innerHTML = current.substring(0,current.length-1);
+            }
+
+        }
+        
+    </script>
+</body>
+</html>
